@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import './App.less';
 import {Hrm} from './pages/Hrm'
 
@@ -7,7 +7,7 @@ import {Hrm} from './pages/Hrm'
 
 const App = () => (
   <div className="App">
-    {/* <Route path="/hrm/:id" component={Hrm} /> */}
+    {/* <Route path="/hrm/g1iivfrxes6j1701001" component={Hrm} /> */}
     <Hrm/>
   </div>
 );
