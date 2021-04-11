@@ -1,6 +1,9 @@
 #### 利用 ant.design 快速建立基礎模型 (https://ant.design/docs/react/use-with-create-react-app-cn)
 #### 使用 Umi 無法佈署目前不知道原因 (https://ant.design/docs/react/practical-projects-cn)
 #### 佈署 github 詳見 ps-ghpages 專案
+```
+yarn run deploy
+```
 
 #### 使用 firebase (https://console.firebase.google.com/project/test-6b4d7/database/test-6b4d7/data?hl=zh-tw)
 ```
