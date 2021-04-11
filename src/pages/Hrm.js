@@ -72,7 +72,8 @@ const firebaseSubmitHandler = (personnelNumber, data) => {
 export const Hrm = props => {
   // 取得路由上使用者 id
   // const personnelNumber = props.match.params.id
-  const personnelNumber = 'gzybfooy8brj2021'
+  // 無法動態之前每月固定寫死
+  const personnelNumber = 'gzybfooy8brj202104'
   
   return (
     <Frame>
