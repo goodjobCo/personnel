@@ -77,7 +77,7 @@ export const Home = props => {
   
   return (
     <div>
-      果匠設計HashRouter
+      果匠設計
     </div>
   );
 }
