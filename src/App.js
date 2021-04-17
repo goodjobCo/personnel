@@ -8,7 +8,7 @@ import {Hrm} from './pages/Hrm'
 const App = () => (
   <div className="App">
     {/* <Route path="/hrm/g1iivfrxes6j1701001" component={Hrm} /> */}
-    <Hrm/>
+   app
   </div>
 );
 
