@@ -16,8 +16,8 @@ const SignupSchema = yup.object().shape({
     remarks: yup.string()
         .min(1, 'Too Short!')
         .max(50, 'Too Long!'),
-    personnel: yup.string()
-        .required(requiredText),
+    personnel: yup.string(),
+        // .required(requiredText),
     project: yup.string()
         .min(2, 'Too Short!')
         .max(50, 'Too Long!')

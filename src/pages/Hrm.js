@@ -13,10 +13,11 @@ const Frame = styled.div`
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
-  padding: 10px 15px;
+  padding: 0;
   .ant-btn.ant-btn-circle{
     width: 160px;
     height: 160px;
+    margin: 0 20px;
     border-width: 15px;
     font-size: 2.5em;
   }
@@ -31,6 +32,13 @@ const Frame = styled.div`
     min-height: auto;
     padding: 20px 10px;
     font-size: 1.2em;
+  }
+  .ant-form-item{
+    margin-bottom: 0;
+  }
+  footer{
+    height: 30px;
+    line-height: 30px;
   }
 `;
 
@@ -53,15 +61,15 @@ const firebaseSubmitHandler = (personnelNumber, data) => {
 
     const database = app.database()
 
-      database.ref(`/personnel/personnelNumber${personnelNumber}`).push(data)
-        .then(function () {
-          const { personnel, project, startDate, startTime, endDate, endTime } = data
-          Modal.success({
-            content: `${personnel} ${project} ${startDate}${startTime}${endDate}${endTime} `,
-          });
-        }).catch(function () {
-          alert("伺服器發生錯誤，請稍後再試");
+    database.ref(`/personnel/personnelNumber${personnelNumber}`).push(data)
+      .then(function () {
+        const { personnel, project, startDate, startTime, endDate, endTime } = data
+        Modal.success({
+          content: `${personnel} ${project} ${startDate}${startTime}${endDate}${endTime} `,
         });
+      }).catch(function () {
+        alert("伺服器發生錯誤，請稍後再試");
+      });
   }
   else {
     const app = firebase.app();
@@ -74,8 +82,7 @@ export const Hrm = props => {
   const personnelNumber = props.match.params.id
   // 無法動態之前每月固定寫死
   // const personnelNumber = 'gzybfooy8brj202104'
-  console.log(props)
-  
+
   return (
     <Frame>
       <Formik
@@ -86,8 +93,8 @@ export const Hrm = props => {
         }}
       >
         {formikProps => {
-          const {startDate, endDate} = formikProps.values
-          return (          
+          const { startDate, endDate } = formikProps.values
+          return (
             <Form>
               <NormalUserDataViewAndEdit personnelNumber={personnelNumber} />
               <Button block type="primary" disabled={!startDate && !endDate} htmlType="submit">
