@@ -9,7 +9,7 @@ import {Hrm} from './pages/Hrm'
 const App = () => (
   <Switch>
       <Route path="/" exact component={Home} />
-      <Route path="/Hrm" exact component={Hrm} />
+      <Route path="/Hrm/:id" exact component={Hrm} />
       { /* 路径不存在，则回到主页。 */ }
       <Route component={Home} />
     </Switch>
