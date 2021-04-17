@@ -78,6 +78,7 @@ export const Home = props => {
   return (
     <div>
       果匠設計內部使用
+      <div><a href="https://owllasagnaganymede78301.wordpress.com/">建置中的網站</a></div>
     </div>
   );
 }

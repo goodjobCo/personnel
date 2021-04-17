@@ -16,14 +16,14 @@ const Frame = styled.div`
   padding: 0;
   .ant-btn.ant-btn-circle{
     width: calc(50% - 20px);
-    height: 160px;
+    height: 100px;
     margin: 0px 10px;
-    border-width: 15px;
+    border-width: 8px;
     font-size: 2.5em;
-    border-radius: 35px;
+    border-radius: 25px;
   }
   .ant-btn-block,.ant-input,.ant-select:not(.ant-select-customize-input) .ant-select-selector{
-    min-height: 45px;
+    min-height: 60px;
     font-size: 1.2em;
   }
   .ant-select-single .ant-select-selector .ant-select-selection-item{
@@ -37,12 +37,18 @@ const Frame = styled.div`
   .ant-form-item{
     margin-bottom: 0;
   }
-  footer{
-    height: 30px;
-    line-height: 30px;
-  }
 `;
-
+const FooterStyled = styled.div`
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  padding: 35px 0 0;
+`;
+const ModalStyled = styled.div`
+font-size: 2em;
+line-height: 1.5em;
+`;
 // sheet.best
 // const submitHandler = data => {
 //   axios.post('https://sheet.best/api/sheets/b1eb45ec-9827-4eea-a012-8d173d9d4393', data)
@@ -66,7 +72,7 @@ const firebaseSubmitHandler = (personnelNumber, data) => {
       .then(function () {
         const { personnel, project, startDate, startTime, endDate, endTime } = data
         Modal.success({
-          content: `${project} ${startDate}${startTime}${endDate}${endTime} `,
+          content: <ModalStyled>{project}<br /> {startDate}{startTime}{endDate}{endTime} </ModalStyled>,
         });
       }).catch(function () {
         alert("伺服器發生錯誤，請稍後再試");
@@ -98,14 +104,16 @@ export const Hrm = props => {
           return (
             <Form>
               <NormalUserDataViewAndEdit personnelNumber={personnelNumber} />
-              <Button block type="primary" disabled={!startDate && !endDate} htmlType="submit">
-                送出
+              <FooterStyled>
+                <Button block type="primary" disabled={!startDate && !endDate} htmlType="submit">
+                  送出
             </Button>
+              </FooterStyled>
             </Form>
           )
         }}
       </Formik>
-      <footer>果匠設計</footer>
+      {/* <footer>果匠設計</footer> */}
     </Frame>
   );
 }

@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Row, Col, Form, Input, Select, Button } from 'antd';
+import { Row, Col, Form, Input, Button } from 'antd';
 import { Field, useFormikContext } from 'formik';
 import styled from 'styled-components';
 import get from 'lodash/get';
 
-const { Option } = Select;
-
 /**編制人員對應編號 */
 const personnelNumberComparison = {
-    'g1iivfrxes6j1701000': '',
+    'g1iivfrxes6jHrmOptional': '',
     'g1iivfrxes6j1701001': '賴建良',
     'g3b0pju2vdgj1701002': '洪黛君',
     'g4gum8cctlnj1701003': '李育修',
@@ -17,55 +15,28 @@ const personnelNumberComparison = {
     'g917kzq5vvvj1701006': '莊銘育',
     'gc786zj39xaj1701007': '莊銘昕',
 }
-// const personnelNumberComparison = [
+
+/**專案 */
+// const projectName = [
 //     {
-//         name: '賴建良',
-//         id: 'g1iivfrxes6j1701001'
+//         name: '其他',
+//         id: '202001'
 //     },
 //     {
-//         name: '洪黛君',
-//         id: 'g3b0pju2vdgj1701002'
+//         name: '樹谷',
+//         id: '202002'
 //     },
 //     {
-//         name: '李育修',
-//         id: 'g4gum8cctlnj1701003'
-//     },
-//     {
-//         name: '林彥如',
-//         id: 'g6vb5bc6wegj1701004'
-//     },
-//     {
-//         name: '王思涵',
-//         id: 'g745ylfzh21j1701005'
-//     },
-//     {
-//         name: '莊銘育',
-//         id: 'g917kzq5vvvj1701006'
-//     },
-//     {
-//         name: '莊銘昕',
-//         id: 'gc786zj39xaj1701007'
+//         name: '鬼屋',
+//         id: '202003'
 //     },
 // ]
 
-/**專案 */
-const projectName = [
-    {
-        name: '其他',
-        id: '202001'
-    },
-    {
-        name: '樹谷',
-        id: '202002'
-    },
-    {
-        name: '鬼屋',
-        id: '202003'
-    },
-]
-
 
 const Frame = styled.div`
+padding-bottom: 100px;
+`;
+const Header = styled.div`
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
@@ -81,17 +52,20 @@ const Frame = styled.div`
     }
 `;
 
-
 const FormItemStyled = styled.div`
     padding: 0 10px;
     text-align: center
 `;
 
 const NameStyled = styled.strong`
-display: block;
-text-align: left;
+    display: block;
+    text-align: left;
     font-size: 1.5em;
     line-height: 2.5em;
+`;
+
+const FormHiddenStyled = styled.div`
+display: none;
 `;
 
 
@@ -116,7 +90,9 @@ function NormalUserDataViewAndEdit(props) {
         steGetTime(
             () => today.toLocaleTimeString()
         )
-        handleChange('personnel', personnelNumber)
+
+        if(personnelNumber !== 'g1iivfrxes6jHrmOptional') ( handleChange('personnel', personnelNumber))
+       
         handleChange(date, getDate)
         handleChange(time, getTime)
 
@@ -139,20 +115,46 @@ function NormalUserDataViewAndEdit(props) {
 
 
     return (
-        <>
+        <Frame>
             <Row>
                 <Col xs={24}>
-                    <Frame>
+                    <Header>
                         <strong>
                             {getDate}<br />
                             {getTime}
                         </strong>
-                    </Frame>
+                    </Header>
                 </Col>
 
                 <Col xs={24}>
                     <FormItemStyled>
                         <NameStyled> {personnelNumberComparison[personnelNumber]}  你好!</NameStyled>
+                    </FormItemStyled>
+                </Col>
+
+                {
+                    personnelNumber === 'g1iivfrxes6jHrmOptional' && (
+                        <Col xs={24}>
+                            <FormItemStyled>
+                                {/** 人員 */}
+                                <Form.Item
+                                    // label="personnel"
+                                    name="personnel"
+                                    help={getHelpByFieldName('personnel')}
+                                    validateStatus={getValidateStatusByFieldName('personnel')}
+                                >
+                                    <Field name="personnel" >
+                                        {() => (<Input placeholder="請輸入姓名" onChange={event => handleChange('personnel', event.target.value)} />)}
+                                    </Field>
+                                </Form.Item>
+                            </FormItemStyled>
+                        </Col>
+                    )
+                }
+
+
+                <Col xs={24}>
+                    <FormItemStyled>
                         {/** 專案 */}
                         <Form.Item
                             // label="project"
@@ -200,8 +202,9 @@ function NormalUserDataViewAndEdit(props) {
                     </FormItemStyled>
                 </Col>
             </Row>
-            <Row>
-                <Col xs={24}>
+            <FormHiddenStyled>
+                { personnelNumber === 'g1iivfrxes6jHrmOptional' && (
+                    <Col xs={24}>
                     {/** 人員 */}
                     <Form.Item
                         // label="personnel"
@@ -214,6 +217,8 @@ function NormalUserDataViewAndEdit(props) {
                         </Field>
                     </Form.Item>
                 </Col>
+                )}
+                
                 <Col xs={6}>
                     {/** 開始日期 */}
                     <Form.Item
@@ -266,8 +271,8 @@ function NormalUserDataViewAndEdit(props) {
                         </Field>
                     </Form.Item>
                 </Col>
-            </Row>
-        </>
+            </FormHiddenStyled>
+        </Frame>
     );
 }
 
