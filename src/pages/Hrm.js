@@ -15,11 +15,12 @@ const Frame = styled.div`
   margin: 0 auto;
   padding: 0;
   .ant-btn.ant-btn-circle{
-    width: 160px;
+    width: calc(50% - 20px);
     height: 160px;
-    margin: 0 20px;
+    margin: 0px 10px;
     border-width: 15px;
     font-size: 2.5em;
+    border-radius: 35px;
   }
   .ant-btn-block,.ant-input,.ant-select:not(.ant-select-customize-input) .ant-select-selector{
     min-height: 45px;
@@ -65,7 +66,7 @@ const firebaseSubmitHandler = (personnelNumber, data) => {
       .then(function () {
         const { personnel, project, startDate, startTime, endDate, endTime } = data
         Modal.success({
-          content: `${personnel} ${project} ${startDate}${startTime}${endDate}${endTime} `,
+          content: `${project} ${startDate}${startTime}${endDate}${endTime} `,
         });
       }).catch(function () {
         alert("伺服器發生錯誤，請稍後再試");
