@@ -1,38 +1,8 @@
 import React from 'react';
-import firebase from 'firebase';
 
-import config from '../config/config';
-import { Formik, Form } from 'formik';
-import { Table, Modal } from 'antd';
+import { Table } from 'antd';
 import styled from 'styled-components';
-import NormalUserDataViewAndEdit from './components/NormalUserDataViewAndEdit';
-import initFormikValues from './utils/initFormikValues';
-import getValidationSchema from './utils/getValidationSchema'
 
-const Frame = styled.div`
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 10px 15px;
-  .ant-btn.ant-btn-circle{
-    width: 160px;
-    height: 160px;
-    border-width: 15px;
-    font-size: 2.5em;
-  }
-  .ant-btn-block,.ant-input,.ant-select:not(.ant-select-customize-input) .ant-select-selector{
-    min-height: 45px;
-    font-size: 1.2em;
-  }
-  .ant-select-single .ant-select-selector .ant-select-selection-item{
-    line-height: 45px
-  }
-  .ant-select-item{
-    min-height: auto;
-    padding: 20px 10px;
-    font-size: 1.2em;
-  }
-`;
 
 const personnelNumberComparison = [
     {
@@ -68,6 +38,20 @@ const personnelNumberComparison = [
         id: 'gc786zj39xaj1701007'
     },
 ]
+const columns = [
+  {
+    title: '打卡網址',
+    dataIndex: 'personnel',
+    key: 'personnel',
+    render: (_, row) => <><a href={`https://goodjobco.github.io/personnel/${row.id}/#/hrm/${row.id}`} target="_blank">{row.name}</a></>,
+  },
+  {
+    title: '查詢網址',
+    dataIndex: 'personnel',
+    key: 'personnel',
+    render: (_, row) => <><a href={`https://goodjobco.github.io/personnel/${row.id}/#/HrmList/${row.id}`} target="_blank">{row.name}</a></>,
+  },
+];
 
 export const RouteList = props => {
   // 取得路由上使用者 id
@@ -76,11 +60,6 @@ export const RouteList = props => {
   const personnelNumber = 'gzybfooy8brj202104'
   
   return (
-    <div>
-      打卡記錄網址
-      {personnelNumberComparison.map(item => (
-        <div><a href={`https://goodjobco.github.io/personnel/${item.id}/#/hrm/${item.id}`} target="_blank">{item.name}</a></div>
-      ))}      
-    </div>
+    <Table dataSource={personnelNumberComparison} columns={columns} />
   );
 }

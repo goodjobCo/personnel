@@ -72,10 +72,11 @@ display: none;
 
 function NormalUserDataViewAndEdit(props) {
     // 取得路由上使用者 id
-    const { personnelNumber } = props;
+    const { personnelNumber, dataLast } = props;
 
-    const { errors, touched, setFieldValue, setFieldTouched } = useFormikContext();
+    const { values, errors, touched, setFieldValue, setFieldTouched } = useFormikContext();
 
+    console.log(values)
     // 取得目前時間 
     const today = new Date();
     const [getDate, steGetDate] = useState(today.toLocaleDateString());
@@ -91,8 +92,8 @@ function NormalUserDataViewAndEdit(props) {
             () => today.toLocaleTimeString()
         )
 
-        if(personnelNumber !== 'g1iivfrxes6jHrmOptional') ( handleChange('personnel', personnelNumber))
-       
+        if (personnelNumber !== 'g1iivfrxes6jHrmOptional') (handleChange('personnel', personnelNumber))
+
         handleChange(date, getDate)
         handleChange(time, getTime)
 
@@ -196,29 +197,31 @@ function NormalUserDataViewAndEdit(props) {
                 </Col>
                 <Col xs={24}>
                     <FormItemStyled>
-                        <Button shape="circle" onClick={() => handleWork('startDate', 'startTime')}>上班</Button>
 
-                        <Button shape="circle" onClick={() => handleWork('endDate', 'endTime')}>下班</Button>
+                        <Button shape="circle" disabled={values.endDate} onClick={() => handleWork('startDate', 'startTime')}>上班</Button>
+
+                        <Button shape="circle" disabled={values.startDate} onClick={() => handleWork('endDate', 'endTime')}>下班</Button>
+
                     </FormItemStyled>
                 </Col>
             </Row>
             <FormHiddenStyled>
-                { personnelNumber === 'g1iivfrxes6jHrmOptional' && (
+                {personnelNumber === 'g1iivfrxes6jHrmOptional' && (
                     <Col xs={24}>
-                    {/** 人員 */}
-                    <Form.Item
-                        // label="personnel"
-                        name="personnel"
-                        help={getHelpByFieldName('personnel')}
-                        validateStatus={getValidateStatusByFieldName('personnel')}
-                    >
-                        <Field name="personnel" >
-                            {() => (<Input type="hidden" value={personnelNumber} onChange={event => handleChange('personnel', personnelNumber)} />)}
-                        </Field>
-                    </Form.Item>
-                </Col>
+                        {/** 人員 */}
+                        <Form.Item
+                            // label="personnel"
+                            name="personnel"
+                            help={getHelpByFieldName('personnel')}
+                            validateStatus={getValidateStatusByFieldName('personnel')}
+                        >
+                            <Field name="personnel" >
+                                {() => (<Input type="hidden" value={personnelNumber} onChange={event => handleChange('personnel', personnelNumber)} />)}
+                            </Field>
+                        </Form.Item>
+                    </Col>
                 )}
-                
+
                 <Col xs={6}>
                     {/** 開始日期 */}
                     <Form.Item

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import firebase from 'firebase';
 
 import config from '../config/config';
@@ -64,6 +64,7 @@ line-height: 1.5em;
 const firebaseSubmitHandler = (personnelNumber, data) => {
 
   if (!firebase.apps.length) {
+    console.log(789,firebase.apps.length)
     const app = firebase.initializeApp(config);
 
     const database = app.database()
@@ -84,12 +85,12 @@ const firebaseSubmitHandler = (personnelNumber, data) => {
 }
 
 
-export const Hrm = props => {
+const Hrm = (props) => {
   // 取得路由上使用者 id
   const personnelNumber = props.match.params.id
   // 無法動態之前每月固定寫死
   // const personnelNumber = 'gzybfooy8brj202104'
-
+  
   return (
     <Frame>
       <Formik
@@ -117,3 +118,5 @@ export const Hrm = props => {
     </Frame>
   );
 }
+
+export default Hrm;

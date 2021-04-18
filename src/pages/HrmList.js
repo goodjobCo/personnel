@@ -2,12 +2,8 @@ import React, { useState, useEffect } from 'react';
 import firebase from 'firebase';
 
 import config from '../config/config';
-import { Formik, Form } from 'formik';
-import { Table, Modal, Row, Col, Input } from 'antd';
+import { Table } from 'antd';
 import styled from 'styled-components';
-import NormalUserDataViewAndEdit from './components/NormalUserDataViewAndEdit';
-import initFormikValues from './utils/initFormikValues';
-import getValidationSchema from './utils/getValidationSchema'
 
 const personnelNumberComparison = {
   'g1iivfrxes6jHrmOptional': '',
@@ -49,59 +45,17 @@ const Frame = styled.div`
     margin-bottom: 0;
   }
 `;
-const FooterStyled = styled.div`
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  padding: 35px 0 0;
-`;
-const ModalStyled = styled.div`
-font-size: 2em;
-line-height: 1.5em;
-`;
-
-// const [dataa,setDataa] = useState();
-
-
-
-// firebase
-const firebaseSubmitHandler = (personnelNumber, data) => {
-
-  if (!firebase.apps.length) {
-    const app = firebase.initializeApp(config);
-
-    const database = app.database()
-
-    database.ref(`/personnel/personnelNumber${personnelNumber}`).push(data)
-      .then(function () {
-        const { personnel, project, startDate, startTime, endDate, endTime } = data
-        Modal.success({
-          content: <ModalStyled>{project}<br /> {startDate}{startTime}{endDate}{endTime} </ModalStyled>,
-        });
-      }).catch(function () {
-        alert("伺服器發生錯誤，請稍後再試");
-      });
-  }
-  else {
-    const app = firebase.app();
-  }
-}
-
 
 export const HrmList = props => {
   // 取得路由上使用者 id
   const personnelNumber = props.match.params.id
-  // 無法動態之前每月固定寫死
-  // const personnelNumber = 'gzybfooy8brj202104'
-
 
   const columns = [
     {
       title: '姓名',
       dataIndex: 'personnel',
       key: 'personnel',
-      render: (_, row) => <>{personnelNumberComparison[row.personnel]}</>,
+      render: (_, row) => <>{personnelNumber === 'g1iivfrxes6jHrmOptional' ? row.personnel: personnelNumberComparison[row.personnel]}</>,
     },
     {
       title: '專案',
@@ -131,8 +85,6 @@ export const HrmList = props => {
     {
       title: '加總',
       render: (_, row) => <>{personnelNumberComparison[row.personnel]}</>,
-      //   dataIndex: 'endTime',
-      //   key: 'endTime',
     },
     {
       title: '備註',
@@ -141,23 +93,19 @@ export const HrmList = props => {
     },
   ];
 
-
-
-
   const [checkedStorageList, setCheckedStorageList] = useState([]);
 
   useEffect(() => {
     if (!firebase.apps.length) {
       const app = firebase.initializeApp(config);
       const database = app.database()
-      database.ref(`/personnel/personnelNumberg1iivfrxes6j1701001`).once("value", e => {
+      database.ref(`/personnel/personnelNumber${personnelNumber}`).once("value", e => {
         setCheckedStorageList(e.val())
-        console.log(e.val())
       })
     } else {
       const app = firebase.app();
     }
-  }, []);
+  }, [personnelNumber]);
 
   return (
     <Frame>
