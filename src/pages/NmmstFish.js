@@ -5,9 +5,9 @@ import config from '../config/config';
 import { Formik, Form } from 'formik';
 import { Button, Modal } from 'antd';
 import styled from 'styled-components';
-import NormalUserDataViewAndEdit from './components/NormalUserDataViewAndEdit';
-import initFormikValues from './utils/initFormikValues';
-import getValidationSchema from './utils/getValidationSchema'
+import NmmstFishViewAndEdit from './components/NmmstFishViewAndEdit';
+import initFormikValues from './utils/NmmstFish/initFormikValues';
+import getValidationSchema from './utils/NmmstFish/getValidationSchema'
 
 const Frame = styled.div`
   width: 100%;
@@ -53,9 +53,9 @@ line-height: 1.5em;
 // const submitHandler = data => {
 //   axios.post('https://sheet.best/api/sheets/b1eb45ec-9827-4eea-a012-8d173d9d4393', data)
 //     .then(response => {
-//       const { personnel, project, startDate, startTime, endDate, endTime } = response?.data[0]
+//       const { personnel, seawater, startDate, startTime, endDate, endTime } = response?.data[0]
 //       Modal.success({
-//         content: `${personnel} ${project} ${startDate}${startTime}${endDate}${endTime} `,
+//         content: `${personnel} ${seawater} ${startDate}${startTime}${endDate}${endTime} `,
 //       });
 //     })
 // }
@@ -74,9 +74,9 @@ const firebaseSubmitHandler = (personnelNumber, data) => {
 
     database.ref(`/nmmstFish/nmmstFishNumber${personnelNumber}`).push(data)
       .then(function () {
-        const { personnel, project, startDate, startTime, endDate, endTime } = data
+        const { personnel, seawater, medication, startDate, startTime, endDate, endTime } = data
         Modal.success({
-          content: <ModalStyled>{project}<br /> {startDate}{startTime}{endDate}{endTime} </ModalStyled>,
+          content: <ModalStyled>{seawater}{medication}<br /> {startDate}{startTime}{endDate}{endTime} </ModalStyled>,
         });
       }).catch(function () {
         alert("伺服器發生錯誤，請稍後再試");
@@ -138,9 +138,11 @@ const NmmstFish = (props) => {
           const { startDate, endDate } = formikProps.values
           return (
             <Form>
-              <NormalUserDataViewAndEdit personnelNumber={personnelNumber} lastTime={lastTime} />
+              <NmmstFishViewAndEdit personnelNumber={personnelNumber} lastTime={lastTime} />
               <FooterStyled>
-                <Button block type="primary" disabled={!startDate && !endDate} htmlType="submit">
+                <Button block type="primary"
+                  // disabled={!startDate && !endDate} 
+                  htmlType="submit">
                   送出
                 </Button>
               </FooterStyled>
@@ -154,3 +156,4 @@ const NmmstFish = (props) => {
 }
 
 export default NmmstFish;
+// /nmmstFish/#/nmmstFish/g1iivfrxes6j1701001

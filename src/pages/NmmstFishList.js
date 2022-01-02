@@ -52,42 +52,84 @@ export const NmmstFishList = props => {
 
   const columns = [
     {
-      title: '姓名',
+      title: '缸體',
       dataIndex: 'personnel',
       key: 'personnel',
-      render: (_, row) => <>{personnelNumber === 'g1iivfrxes6jHrmOptional' ? row.personnel : personnelNumberComparison[row.personnel]}</>,
     },
     {
-      title: '專案',
-      dataIndex: 'project',
-      key: 'project',
+      title: '海水比重',
+      dataIndex: 'seawater',
+      key: 'seawater',
     },
     {
-      title: '開始日',
-      dataIndex: 'startDate',
-      key: 'startDate',
+      title: '下藥紀錄',
+      dataIndex: 'medication',
+      key: 'medication',
     },
     {
-      title: '時間',
-      dataIndex: 'startTime',
-      key: 'startTime',
+      title: '上午餵食',
+      dataIndex: 'morning',
+      key: 'morning',
     },
     {
-      title: '結束日',
-      dataIndex: 'endDate',
-      key: 'endDate',
+      title: '下午餵食',
+      dataIndex: 'afternoon',
+      key: 'afternoon',
     },
     {
-      title: '時間',
-      dataIndex: 'endTime',
-      key: 'endTime',
+      title: '是否添加硝化菌0.5cc',
+      render: (_, row) => <>{row.nitrifying ? 'V' : ''}</>,
     },
     {
-      title: '加總',
-      render: (_, row) => <>{personnelNumberComparison[row.personnel]}</>,
+      title: '是否添加小蘇打',
+      render: (_, row) => <>{row.soda ? 'V' : ''}</>,
     },
     {
-      title: '備註',
+      title: '是否添加氫氧化鈣',
+      render: (_, row) => <>{row.hydroxide ? 'V' : ''}</>,
+    },
+    {
+      title: '缸壁藻類水垢清潔',
+      render: (_, row) => <>{row.cylinderWall ? 'V' : ''}</>,
+    },
+    {
+      title: '出水口藻類清潔',
+      render: (_, row) => <>{row.outlet ? 'V' : ''}</>,
+    },
+    {
+      title: '蛋白機清洗',
+      render: (_, row) => <>{row.proteinMachine ? 'V' : ''}</>,
+    },
+    {
+      title: '過濾白棉更換',
+      render: (_, row) => <>{row.filterSponge ? 'V' : ''}</>,
+    },
+    {
+      title: '不正常設備',
+      dataIndex: 'unusual',
+      key: 'unusual',
+    },
+    {
+      title: '魚口增減',
+      dataIndex: 'fish',
+      key: 'fish',
+    },
+    {
+      title: '突發事項/處理',
+      dataIndex: 'emergency',
+      key: 'emergency',
+    },
+    {
+      title: '維護人員',
+      dataIndex: 'maintainPersonnel',
+      key: 'maintainPersonnel',
+    },
+    // {
+    //   title: '加總',
+    //   render: (_, row) => <>{personnelNumberComparison[row.personnel]}</>,
+    // },
+    {
+      title: '交接建議',
       dataIndex: 'remarks',
       key: 'remarks',
     },
