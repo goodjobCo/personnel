@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import firebase from 'firebase';
 
 import config from '../config/config';
@@ -64,15 +64,15 @@ line-height: 1.5em;
 const firebaseSubmitHandler = (personnelNumber, data) => {
 
   // Access your firebase app
- 
+
 
   if (!firebase.apps.length) {
-    console.log(789,firebase.apps.length)
+    console.log(789, firebase.apps.length)
     const app = firebase.initializeApp(config);
 
     const database = app.database()
 
-    database.ref(`/personnel/personnelNumber${personnelNumber}`).push(data)
+    database.ref(`/nmmstFish/nmmstFishNumber${personnelNumber}`).push(data)
       .then(function () {
         const { personnel, project, startDate, startTime, endDate, endTime } = data
         Modal.success({
@@ -88,7 +88,7 @@ const firebaseSubmitHandler = (personnelNumber, data) => {
 }
 
 
-const Hrm = (props) => {
+const NmmstFish = (props) => {
   // 取得路由上使用者 id
   const personnelNumber = props.match.params.id
   // 無法動態之前每月固定寫死
@@ -110,7 +110,7 @@ const Hrm = (props) => {
       setCheckedStorageList(data)
       // 取得資料後刪除調用，以防止後續無法存檔
       app.delete(firebase.app());
-  }); 
+    });
 
   }, [personnelNumber]);
 
@@ -119,12 +119,12 @@ const Hrm = (props) => {
    * TODO: 沒有名字的怎麼處理?? 認 personnelNumber ID 相同?
    */
   const length = Object.keys(checkedStorageList).length
-  const lastTime = (    
+  const lastTime = (
     Object.values(checkedStorageList)
-    .filter( (list, index) => index === length-1)
-    .map(item => item)    
+      .filter((list, index) => index === length - 1)
+      .map(item => item)
   )
-  
+
   return (
     <Frame>
       <Formik
@@ -142,7 +142,7 @@ const Hrm = (props) => {
               <FooterStyled>
                 <Button block type="primary" disabled={!startDate && !endDate} htmlType="submit">
                   送出
-            </Button>
+                </Button>
               </FooterStyled>
             </Form>
           )
@@ -153,4 +153,4 @@ const Hrm = (props) => {
   );
 }
 
-export default Hrm;
+export default NmmstFish;

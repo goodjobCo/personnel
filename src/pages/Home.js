@@ -53,15 +53,15 @@ const firebaseSubmitHandler = (personnelNumber, data) => {
 
     const database = app.database()
 
-      database.ref(`/personnel/personnelNumber${personnelNumber}`).push(data)
-        .then(function () {
-          const { personnel, project, startDate, startTime, endDate, endTime } = data
-          Modal.success({
-            content: `${personnel} ${project} ${startDate}${startTime}${endDate}${endTime} `,
-          });
-        }).catch(function () {
-          alert("伺服器發生錯誤，請稍後再試");
+    database.ref(`/personnel/personnelNumber${personnelNumber}`).push(data)
+      .then(function () {
+        const { personnel, project, startDate, startTime, endDate, endTime } = data
+        Modal.success({
+          content: `${personnel} ${project} ${startDate}${startTime}${endDate}${endTime} `,
         });
+      }).catch(function () {
+        alert("伺服器發生錯誤，請稍後再試");
+      });
   }
   else {
     const app = firebase.app();
@@ -74,10 +74,12 @@ export const Home = props => {
   // const personnelNumber = props.match.params.id
   // 無法動態之前每月固定寫死
   const personnelNumber = 'gzybfooy8brj202104'
-  
+
   return (
     <div>
       果匠設計內部使用
+      <div><a href="/personnel/#/RouteList">打卡</a></div>
+      <div><a href="/nmmstFish/#/NmmstFishRouteList">海洋嘉年華2.0</a></div>
       <div><a href="https://owllasagnaganymede78301.wordpress.com/">建置中的網站</a></div>
     </div>
   );

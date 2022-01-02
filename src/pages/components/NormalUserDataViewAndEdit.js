@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Form, Input, Button } from 'antd';
 import { Field, useFormikContext } from 'formik';
 import styled from 'styled-components';
@@ -61,7 +61,14 @@ const NameStyled = styled.strong`
     display: block;
     text-align: left;
     font-size: 1.5em;
-    line-height: 2.5em;
+`;
+
+const LastTimeStyled = styled.strong`
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+    color: #5e5e5e;
+    font-weight: 500;
 `;
 
 const FormHiddenStyled = styled.div`
@@ -70,13 +77,14 @@ display: none;
 
 
 
+
+
 function NormalUserDataViewAndEdit(props) {
     // 取得路由上使用者 id
-    const { personnelNumber, dataLast } = props;
+    const { personnelNumber, lastTime } = props;
 
     const { values, errors, touched, setFieldValue, setFieldTouched } = useFormikContext();
 
-    console.log(values)
     // 取得目前時間 
     const today = new Date();
     const [getDate, steGetDate] = useState(today.toLocaleDateString());
@@ -114,6 +122,25 @@ function NormalUserDataViewAndEdit(props) {
         setFieldValue(field, value);
     };
 
+    const [lastTimeList, setLastTimeList] = useState({});
+    const {startDate, startTime, endDate, endTime} = lastTimeList
+
+    useEffect(() => {
+        let time = {}
+        lastTime?.filter((list, index) => index === 0)
+            .map(item => (
+                time =
+                {
+                    startDate: item.startDate,
+                    startTime: item.startTime,
+                    endDate: item.endDate,
+                    endTime: item.endTime
+                }
+            )
+            )
+        setLastTimeList(time)
+    }, [lastTime]);
+
 
     return (
         <Frame>
@@ -129,7 +156,10 @@ function NormalUserDataViewAndEdit(props) {
 
                 <Col xs={24}>
                     <FormItemStyled>
-                        <NameStyled> {personnelNumberComparison[personnelNumber]}  你好!</NameStyled>
+                        <NameStyled> {personnelNumberComparison[personnelNumber]}  你好! </NameStyled>
+                        
+                            <LastTimeStyled>上次打卡時間: {startDate} {startTime} {endDate} {endTime}</LastTimeStyled>
+
                     </FormItemStyled>
                 </Col>
 
