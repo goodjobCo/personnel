@@ -61,3 +61,6 @@ export const NmmstFishRouteList = props => {
 }
 // 海洋嘉年華2.0
 // /nmmstFish/#/NmmstFishList/g1iivfrxes6j1701001
+// https://goodjobco.github.io/personnel/g1iivfrxes6j1701001/#/NmmstFishList/g1iivfrxes6j1701001
+
+// https://goodjobco.github.io/personnel/g1iivfrxes6j1701001/#/nmmstFish/g1iivfrxes6j1701001
